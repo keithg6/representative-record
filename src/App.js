@@ -1,12 +1,9 @@
 import React from 'react';
 import './App.css';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Alert from 'react-bootstrap/Alert';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, Alert, Container, Row, Col } from 'react-bootstrap';
+import { Card, CardContent, Typography, TextField } from '@material-ui/core';
 
 class App extends React.Component {
   constructor(props) {
@@ -106,9 +103,9 @@ class App extends React.Component {
       mappedRoles = roles.map((role) =>
         <Card variant="outlined" style={
           {
+            textAlign: "center",
             margin: "10px",
             display: "block",
-            overflow: "scroll"
           }
         }>
           <CardContent>
@@ -121,7 +118,7 @@ class App extends React.Component {
             </Typography>
             <hr></hr>
             <Typography>
-              Total Votes:{role.votes}
+              Total Votes: {role.votes}
             </Typography>
             <hr></hr>
             <Typography>
@@ -133,38 +130,66 @@ class App extends React.Component {
             </Typography>
           </CardContent>
         </Card>
+
       )
     }
+    let memberName = "";
+    if (this.state.member != null) {
+      memberName = this.state.member.name
+    }
+
     return (
       <div className="App" >
-        <div className="top">
-          <Alert variant="danger" onClose={() => { this.setState({ alert: false }) }} show={this.state.alert} dismissible>
-            <Alert.Heading>Sorry!</Alert.Heading>
-            <p>
-              You must select a valid representative before submitting.
-        </p>
-          </Alert>
-          <div className="main">
-            <ButtonGroup>
-              <Button variant="outline-success" value="house" onClick={this.onChange}>House</Button>
-              <Button variant="outline-success" value="senate" onClick={this.onChange}>Senate</Button>
-            </ButtonGroup>
-            <Autocomplete
-              disabled={!this.state.hasSelected || this.state.loading}
-              id="searchbar"
-              options={this.state.members}
-              getOptionLabel={(option) => option.name
-              }
-              style={{ width: 300 }}
-              renderInput={(params) => <TextField {...params}
-                label={text}
-                variant="outlined" />}
-              onChange={(event, value) => this.setState({
-                member: value
-              })}
-            />
-            <Button variant="primary" onClick={this.onSubmit}>Submit</Button>
-          </div>
+        <Container className="top">
+          <Container fluid>
+            <Row>
+              <Col>
+                <Alert variant="danger" onClose={() => { this.setState({ alert: false }) }} show={this.state.alert} dismissible>
+                  <Alert.Heading>Sorry!</Alert.Heading>
+                  <p>
+                    You must select a valid representative before submitting.
+                </p>
+                </Alert>
+              </Col>
+            </Row>
+          </Container>
+          <Container className="d-flex justify-content-around">
+            <Row>
+              <Col xs={12} md={3}>
+                <ButtonGroup>
+                  <Button variant="outline-success" value="house" onClick={this.onChange}>House</Button>
+                  <Button variant="outline-success" value="senate" onClick={this.onChange}>Senate</Button>
+                </ButtonGroup>
+              </Col>
+              <Col xs={12} md={6}>
+                <Autocomplete
+                  disabled={!this.state.hasSelected || this.state.loading}
+                  id="searchbar"
+                  options={this.state.members}
+                  getOptionLabel={(option) => option.name
+                  }
+                  style={{
+                    width: 300,
+                    backgroundColor: "white"
+                  }}
+                  renderInput={(params) => <TextField {...params}
+                    label={text}
+                    variant="outlined" />}
+                  onChange={(event, value) => this.setState({
+                    member: value
+                  })}
+                />
+              </Col>
+              <Col xs={12} md={3}>
+                <Button variant="primary" onClick={this.onSubmit}>Submit</Button>
+              </Col>
+            </Row>
+          </Container>
+        </Container>
+        <div className="name">
+          <h4>
+          {memberName}
+          </h4>
         </div>
         <div>{mappedRoles}</div>
       </div >

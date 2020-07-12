@@ -1,7 +1,15 @@
 .top {
+    padding-top: 20px;
+    min-width: 100vw;
     height: 100vh;
     background: url(./capitol.jpg) no-repeat center center fixed;
     background-size: cover;
+}
+
+.name{
+    text-align: center;
+    padding: 20px;
+    border: 1px solid gray;
 }
 /* 
 .main {
