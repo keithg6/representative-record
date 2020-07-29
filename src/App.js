@@ -144,21 +144,21 @@ class App extends React.Component {
           <Container fluid>
             <Row>
               <Col>
-                <Alert variant="danger" onClose={() => { this.setState({ alert: false }) }} show={this.state.alert} dismissible>
+                <Alert variant="danger" style={{ textAlign: "center" }} onClose={() => { this.setState({ alert: false }) }} show={this.state.alert} dismissible>
                   <Alert.Heading>Sorry!</Alert.Heading>
                   <p>
                     You must select a valid representative before submitting.
-                </p>
+                  </p>
                 </Alert>
               </Col>
             </Row>
           </Container>
-          <Container className="d-flex justify-content-around">
+          <Container className="d-flex justify-content-around" style={{paddingTop: "20%"}}>
             <Row>
               <Col xs={12} md={3}>
                 <ButtonGroup>
-                  <Button variant="outline-success" value="house" onClick={this.onChange}>House</Button>
-                  <Button variant="outline-success" value="senate" onClick={this.onChange}>Senate</Button>
+                  <Button variant="success" value="house" onClick={this.onChange}>House</Button>
+                  <Button variant="success" value="senate" onClick={this.onChange}>Senate</Button>
                 </ButtonGroup>
               </Col>
               <Col xs={12} md={6}>
@@ -186,12 +186,20 @@ class App extends React.Component {
             </Row>
           </Container>
         </Container>
-        <div className="name">
-          <h4>
-          {memberName}
-          </h4>
-        </div>
-        <div>{mappedRoles}</div>
+        {this.state.roles != null ?
+          <div>
+            <div className="name">
+              <h4>
+                {memberName}
+              </h4>
+            </div>
+            <div>
+              {mappedRoles}
+            </div>
+          </div>
+          :
+          <div></div>
+        }
       </div >
     );
   }
